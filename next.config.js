@@ -1,7 +1,5 @@
 const nextConfig = {
   reactStrictMode: true,
-  output: 'export',
-  trailingSlash: true,
   turbopack: {
     root: __dirname,
   },

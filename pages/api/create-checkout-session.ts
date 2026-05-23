@@ -3,9 +3,7 @@ import Stripe from 'stripe'
 import allProducts from '../../lib/enriched-data.json'
 import type { ProductData } from '../../lib/types'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2024-12-18.acacia',
-})
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
 
 interface CheckoutBody {
   plan?: string
