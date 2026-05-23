@@ -1,4 +1,5 @@
-import { Check } from 'lucide-react'
+import { useState } from 'react'
+import { Check, Loader2 } from 'lucide-react'
 import { Button } from '../ui/Button'
 import { Badge } from '../ui/Badge'
 import { SectionHeader } from '../ui/SectionHeader'
@@ -14,6 +15,32 @@ const tierLabels = {
 export function Pricing({ product }: { product: ProductData }) {
   const { pricing } = product
   const tiers = ['starter', 'pro', 'enterprise'] as const
+  const [loadingTier, setLoadingTier] = useState<string | null>(null)
+
+  async function handleCheckout(tier: string) {
+    setLoadingTier(tier)
+    try {
+      const res = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ plan: tier }),
+      })
+      const data = await res.json()
+      if (data.url) {
+        window.location.href = data.url
+      } else if (data.id) {
+        const stripe = await import('@stripe/stripe-js').then(m => m.loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY || 'pk_live_51RyjGjEMZz2kmsiavfZYs3PKut4DTqo5pxpDJb3vvmEXjeeXiTf2VgsMOKgTzZfd3IY3YMtUyJ8qYdFMLKlIZ97i003f7NhXxH'))
+        if (stripe) {
+          await stripe.redirectToCheckout({ sessionId: data.id })
+        }
+      }
+    } catch (err) {
+      console.error('Checkout error:', err)
+      window.location.href = `/pricing?checkout_error=true`
+    } finally {
+      setLoadingTier(null)
+    }
+  }
 
   return (
     <section id="pricing" className="py-24 bg-surface">
@@ -23,9 +50,10 @@ export function Pricing({ product }: { product: ProductData }) {
           description="Choose the plan that fits your needs. Upgrade or downgrade anytime."
         />
         <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {tiers.map((tier, i) => {
+          {tiers.map((tier) => {
             const plan = pricing[tier]
             const isPopular = tier === 'pro'
+            const isLoading = loadingTier === tier
 
             return (
               <div
@@ -64,18 +92,33 @@ export function Pricing({ product }: { product: ProductData }) {
                     </li>
                   ))}
                 </ul>
-                <Button
-                  as="a"
-                  href={tier === 'enterprise' ? '/contact' : `/api/auth/signup?plan=${tier}&ref=${product.slug}`}
-                  variant={isPopular ? 'secondary' : 'outline'}
-                  className="w-full"
-                >
-                  {tier === 'enterprise' ? 'Contact Sales' : 'Get Started'}
-                </Button>
+                {tier === 'enterprise' ? (
+                  <Button
+                    as="a"
+                    href="/contact"
+                    variant={isPopular ? 'secondary' : 'outline'}
+                    className="w-full"
+                  >
+                    Contact Sales
+                  </Button>
+                ) : (
+                  <Button
+                    variant={isPopular ? 'secondary' : 'outline'}
+                    className="w-full"
+                    onClick={() => handleCheckout(tier)}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? <Loader2 className="w-4 h-4 animate-spin mr-2" /> : null}
+                    {isLoading ? 'Processing...' : 'Get Started'}
+                  </Button>
+                )}
               </div>
             )
           })}
         </div>
+        <p className="text-center text-sm text-text-muted mt-8">
+          {product.guaranteeDays}-day money-back guarantee. No credit card required for trial.
+        </p>
       </div>
     </section>
   )

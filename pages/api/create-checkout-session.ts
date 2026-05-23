@@ -3,7 +3,9 @@ import Stripe from 'stripe'
 import allProducts from '../../lib/enriched-data.json'
 import type { ProductData } from '../../lib/types'
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '')
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
+  apiVersion: '2024-12-18.acacia',
+})
 
 interface CheckoutBody {
   plan?: string
@@ -12,7 +14,7 @@ interface CheckoutBody {
 function getProductSlug(req: NextApiRequest): string {
   const host = req.headers.host || ''
   const parts = host.split('.')
-  if (parts.length >= 2 && !['www', 'localhost'].includes(parts[0])) {
+  if (parts.length >= 2 && !['www', 'localhost', 'vercel'].includes(parts[0])) {
     return parts[0]
   }
   return 'fdarecallalert'
@@ -67,9 +69,13 @@ export default async function handler(
       mode: 'subscription',
       success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${origin}/pricing`,
+      metadata: {
+        product_slug: slug,
+        plan: plan,
+      },
     })
 
-    return res.status(200).json({ id: session.id })
+    return res.status(200).json({ id: session.id, url: session.url })
   } catch (err) {
     console.error('Stripe checkout error:', err)
     return res.status(500).json({ error: 'Failed to create checkout session' })
