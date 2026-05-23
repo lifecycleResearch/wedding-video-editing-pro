@@ -1,0 +1,156 @@
+[
+  {
+    "slug": "wedding-video-editing-pro",
+    "name": "Wedding Video Editing Pro",
+    "category": "Creative/Design",
+    "tagline": "The #190 platform for wedding video editing \u2014 AI-powered, instant delivery",
+    "hook": "Turn 'Wedding Video Editing' Into a Scalable Revenue Stream",
+    "description": "Enterprise-grade wedding video editing platform delivering automated workflows and AI-powered tools for freelance professionals.",
+    "primaryColor": "#7c3aed",
+    "pricing": {
+      "starter": {
+        "price": 29,
+        "queries": "100",
+        "features": [
+          "100 projects",
+          "Email support",
+          "Basic templates",
+          "Community access"
+        ]
+      },
+      "pro": {
+        "price": 149,
+        "queries": "1,000",
+        "features": [
+          "1,000 projects",
+          "Priority support",
+          "Advanced templates",
+          "API access",
+          "Team features"
+        ]
+      },
+      "enterprise": {
+        "price": 799,
+        "queries": "Unlimited",
+        "features": [
+          "Unlimited projects",
+          "Dedicated support",
+          "Custom branding",
+          "White-label",
+          "SLA guarantee"
+        ]
+      }
+    },
+    "competitor": {
+      "name": "Fiverr",
+      "price": 20
+    },
+    "roi": 50000,
+    "bundle": {
+      "name": "Freelance Creative/Design Suite",
+      "price": 298
+    },
+    "features": [
+      {
+        "title": "AI Design Assistant",
+        "description": "Generate design variations and layouts instantly",
+        "benefit": "Create stunning designs in minutes",
+        "icon": "Palette"
+      },
+      [
+        "Real-time Analytics",
+        "Track every aspect of your wedding video editing workflow",
+        "Make data-driven decisions",
+        "BarChart3"
+      ],
+      [
+        "Team Collaboration",
+        "Work together seamlessly with built-in collaboration tools",
+        "Team productivity, amplified",
+        "Users"
+      ],
+      [
+        "API Integration",
+        "Connect with the tools you already use via our REST API",
+        "Works with your workflow",
+        "Workflow"
+      ]
+    ],
+    "testimonials": [
+      {
+        "quote": "\"Wedding Video Editing Pro transformed how we handle wedding video editing. We're 3x more productive.\"",
+        "author": "Sarah Chen",
+        "role": "VP Operations",
+        "company": "TechCorp"
+      },
+      {
+        "quote": "\"The ROI was immediate. In our first month, we doubled our wedding video editing output.\"",
+        "author": "Marcus Rodriguez",
+        "role": "Director",
+        "company": "Innovation Labs"
+      },
+      {
+        "quote": "\"What took our team a full day now takes 30 minutes. Game-changing.\"",
+        "author": "Emily Park",
+        "role": "Head of Product",
+        "company": "Global Group"
+      }
+    ],
+    "faq": [
+      {
+        "question": "How long does it take to set up?",
+        "answer": "Most users are up and running in under 15 minutes. Enterprise setups with custom workflows take less than 24 hours."
+      },
+      {
+        "question": "Do I need technical skills?",
+        "answer": "Not at all. Wedding Video Editing Pro is designed for non-technical users. Our templates handle the complexity."
+      },
+      {
+        "question": "What if I need to cancel?",
+        "answer": "Cancel anytime with one click. No contracts, no penalties."
+      },
+      {
+        "question": "Can I try before I buy?",
+        "answer": "Yes! Start with a free trial \u2014 no credit card required."
+      }
+    ],
+    "howItWorks": [
+      {
+        "step": 1,
+        "title": "Set Up Your Workspace",
+        "description": "Create your Wedding Video Editing Pro workspace and configure your preferences in minutes.",
+        "icon": "Settings"
+      },
+      {
+        "step": 2,
+        "title": "Choose Your Workflow",
+        "description": "Select from pre-built templates for wedding video editing or create a custom workflow.",
+        "icon": "MousePointerClick"
+      },
+      {
+        "step": 3,
+        "title": "Deliver & Scale",
+        "description": "Start delivering wedding video editing at scale with AI-powered automation.",
+        "icon": "Rocket"
+      }
+    ],
+    "problemAgitate": {
+      "problem": "Manual wedding video editing is costing you time and money",
+      "agitate": "Every hour you spend manually handling wedding video editing is an hour you could be earning. Your competitors have already automated this and are pulling ahead."
+    },
+    "dreamOutcome": "Imagine automating your entire wedding video editing workflow \u2014 delivering better results in half the time while your competitors struggle to keep up.",
+    "riskReversal": "Try Wedding Video Editing Pro risk-free for 30 days. If you're not delivering better wedding video editing faster, get a full refund.",
+    "scarcity": "Limited-time: First 500 customers get 50% off annual plan",
+    "guaranteeDays": 30,
+    "images": {
+      "hero": "https://images.unsplash.com/photo-1559136555-9303baea8ebd?w=1200&q=80",
+      "dashboard": "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80",
+      "features": [],
+      "testimonials": []
+    },
+    "altText": {
+      "hero": "Wedding Video Editing Pro dashboard and analytics",
+      "dashboard": "Wedding Video Editing Pro project management interface"
+    }
+  }
+]

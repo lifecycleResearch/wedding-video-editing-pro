@@ -1,0 +1,49 @@
+name: Marketing Automation
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+    - cron: '0 14 * * *'
+  workflow_dispatch:
+
+jobs:
+  sales-followup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+
+      - name: Run sales follow-up
+        run: node .github/scripts/sales-followup.mjs
+        env:
+          PRODUCT_SLUG: ${{ github.event.repository.name }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+
+  social-post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          echo "Social post for $(cat package.json | jq -r .name)"
+        # Future: integrate Buffer/Hootsuite API
+
+  analytics-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+
+      - name: Generate daily analytics report
+        run: node .github/scripts/analytics-report.mjs
+        env:
+          PRODUCT_SLUG: ${{ github.event.repository.name }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
