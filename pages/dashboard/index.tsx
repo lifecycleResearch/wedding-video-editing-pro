@@ -369,7 +369,7 @@ function OverviewTab({ usage, incidents, product }: { usage: UsageData | null; i
       {/* Quick Actions */}
       <div className="grid sm:grid-cols-3 gap-4">
         <QuickAction icon={Bell} title="Configure Alerts" desc="Set up email, SMS, or webhook notifications" href="/dashboard/settings" />
-        <QuickAction icon={Database} title="Browse Incidents" desc={`View ${canAccessDb ? 'full' : 'recent'} incident database`} href="#" onClick={() => {}} />
+        <QuickAction icon={Database} title="Browse Incidents" desc={`View ${canAccessDb ? 'full' : 'recent'} incident database`} href="#" />
         <QuickAction icon={BarChart3} title="View Reports" desc="Analytics and trend reports" href="/dashboard/billing" />
       </div>
     </div>
