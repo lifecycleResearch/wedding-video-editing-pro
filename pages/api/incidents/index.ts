@@ -4,9 +4,10 @@ import { getIncidentsForProduct } from '../../../lib/incidents'
 import allProducts from '../../../lib/enriched-data.json'
 import type { ProductData } from '../../../lib/types'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://qncqiuqjmovdgmsuwopb.supabase.co'
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || 'sb_publishable_jxa9wtpIq8g-fhdUUcfGFw_1Ccm4tWy'
-const supabase = createClient(supabaseUrl, supabaseKey)
+if (!process.env.NEXT_PUBLIC_SUPABASE_URL || !process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY) {
+  throw new Error('Missing Supabase env vars')
+}
+const supabase = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY)
 
 interface PlanLimits {
   queries_limit: number

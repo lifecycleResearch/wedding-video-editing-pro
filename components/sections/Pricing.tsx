@@ -29,7 +29,9 @@ export function Pricing({ product }: { product: ProductData }) {
       if (data.url) {
         window.location.href = data.url
       } else if (data.id) {
-        const stripe = await import('@stripe/stripe-js').then(m => m.loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY || 'pk_live_51RyjGjEMZz2kmsiavfZYs3PKut4DTqo5pxpDJb3vvmEXjeeXiTf2VgsMOKgTzZfd3IY3YMtUyJ8qYdFMLKlIZ97i003f7NhXxH'))
+        const pk = process.env.NEXT_PUBLIC_STRIPE_KEY
+        if (!pk) throw new Error('NEXT_PUBLIC_STRIPE_KEY not set')
+        const stripe = await import('@stripe/stripe-js').then(m => m.loadStripe(pk))
         if (stripe) {
           await stripe.redirectToCheckout({ sessionId: data.id })
         }
