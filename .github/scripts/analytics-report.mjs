@@ -1,8 +1,8 @@
-// Daily analytics report: user signups, page views, conversion rates
 import { createClient } from '@supabase/supabase-js'
 
-const supabaseUrl = process.env.SUPABASE_URL || 'https://qncqiuqjmovdgmsuwopb.supabase.co'
-const supabaseKey = process.env.SUPABASE_ANON_KEY || 'sb_publishable_jxa9wtpIq8g-fhdUUcfGFw_1Ccm4tWy'
+const supabaseUrl = process.env.SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_ANON_KEY
+if (!supabaseUrl || !supabaseKey) throw new Error('Missing SUPABASE_URL or SUPABASE_ANON_KEY')
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 const slug = process.env.PRODUCT_SLUG || 'unknown'

@@ -20,17 +20,36 @@ jobs:
         run: node .github/scripts/sales-followup.mjs
         env:
           PRODUCT_SLUG: ${{ github.event.repository.name }}
+          PRODUCT_NAME: ${{ vars.PRODUCT_NAME || github.event.repository.name }}
+          PRODUCT_CATEGORY: ${{ vars.PRODUCT_CATEGORY || '' }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
 
   social-post:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: |
-          echo "Social post for $(cat package.json | jq -r .name)"
-        # Future: integrate Buffer/Hootsuite API
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+
+      - name: Generate and post social content
+        run: node .github/scripts/social-post.mjs
+        env:
+          PRODUCT_SLUG: ${{ github.event.repository.name }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          CEREBRAS_API_KEY: ${{ secrets.CEREBRAS_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          BUFFER_ACCESS_TOKEN: ${{ secrets.BUFFER_ACCESS_TOKEN }}
+          BUFFER_PROFILE_ID: ${{ secrets.BUFFER_PROFILE_ID }}
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_PERSON_ID: ${{ secrets.LINKEDIN_PERSON_ID }}
 
   analytics-report:
     runs-on: ubuntu-latest
